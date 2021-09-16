@@ -1,0 +1,5 @@
+links = //table[@class="hoverTable"]/tbody/tr//a/@href
+
+links2 = //td/a[@class = "enlaces"]/@href
+
+titulo = //td/a[@class = "enlaces" and @href]/p/text()
