@@ -1,4 +1,5 @@
 venv/
+anime/
 *.txt
 !requirements.txt
 *.code-workspace

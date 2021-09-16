@@ -14,3 +14,6 @@ El siguiente script sirve para extraer de manera automatica los links para desca
 ```sh
 pip3 install -r requirements.txt 
 ```
+
+> **Note**: ejemplo del link que se debe ingresar:
+<https://biblioteca.japan-paw.wtf/0:/Anime/B/[Tsubaki]%20Bokura%20wa%20Minna%20Kawai-sou%20[BD%201080p]/[Tsubaki]%20Bokura%20wa%20Minna%20Kawai-sou%20[BD%201080p]mirror.html>

@@ -1,7 +1,7 @@
+import os
 import requests
 import lxml.html as html
 
-# LINK = 'https://biblioteca.japan-paw.wtf/0:/Anime/B/[Tsubaki]%20Bokura%20wa%20Minna%20Kawai-sou%20[BD%201080p]/[Tsubaki]%20Bokura%20wa%20Minna%20Kawai-sou%20[BD%201080p]mirror.html'
 
 XPATH_LINKS_A_DESCARGAR = '//td/a[@class = "enlaces"]/@href'
 XPATH_TITULOS_CAPS = '//td/a[@class = "enlaces" and @href]/p/text()'
@@ -9,18 +9,24 @@ XPATH_SERIE = '//div[@style]/h1/text()'
 
 
 def make_files(links, t_caps, nombre_anime):
-    with open('zeldas.txt', 'w') as f:
+
+    if not os.path.isdir('anime/'+nombre_anime):
+        os.mkdir('anime/'+nombre_anime)
+
+
+    with open('anime/'+nombre_anime+'/zeldas.txt', 'w', encoding='utf-8') as f:
         for iterador in links:
             f.write(iterador)
 
+
     diccionario = dict(zip(t_caps, links))
 
-    with open('diccionario.txt', 'w') as f:
 
+    with open('anime/'+nombre_anime+'/'+nombre_anime+'.txt', 'w', encoding='utf-8') as f:
         f.write(f"{nombre_anime} \n\n")
 
         for llave in diccionario:
-            f.write(f"{llave} : {diccionario[llave]}" )
+            f.write( f"{llave} : {diccionario[llave]}" )
 
 
 
@@ -44,8 +50,13 @@ def parse_links(link_a_scrapear):
             links_a_descargar = parseado.xpath(XPATH_LINKS_A_DESCARGAR)
             titulos_caps = parseado2.xpath(XPATH_TITULOS_CAPS)
             nombre_anime = parseado3.xpath(XPATH_SERIE)[0]
+            
+            #se limpia un poco el nombre del anime
             nombre_anime = nombre_anime.replace('\'', '')
-
+            nombre_anime = nombre_anime.replace('[', '')
+            nombre_anime = nombre_anime.replace(']', ' -')
+            
+            
             make_files(links_a_descargar, titulos_caps, nombre_anime)
 
         else:
