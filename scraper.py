@@ -2,11 +2,13 @@ import os
 import requests
 import lxml.html as html
 
+#cat zeldas.bk.txt | tr "=" "\n" | grep -v ouo
 
 XPATH_LINKS_A_DESCARGAR = '//td/a[@class = "enlaces"]/@href'
 XPATH_TITULOS_CAPS = '//td/a[@class = "enlaces" and @href]/p/text()'
 XPATH_SERIE = '//div[@style]/h1/text()'
 
+EXPRESION_REGULAR = "https?:\/\/[^ou ].+\.(mkv)?(mp4)?$"
 
 def make_files(links, t_caps, nombre_anime):
 
