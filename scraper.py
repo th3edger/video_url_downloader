@@ -1,7 +1,7 @@
-import os, re, requests
+import os, re, requests, time
 import lxml.html as html
 
-#cat zeldas.bk.txt | tr "=" "\n" | grep -v ouo
+inicio = time.time()
 
 XPATH_LINKS_A_DESCARGAR = '//td/a[@class = "enlaces"]/@href'
 XPATH_TITULOS_CAPS = '//td/a[@class = "enlaces" and @href]/p/text()'
@@ -46,22 +46,20 @@ def parse_links(link_a_scrapear):
     try:
         
         respuesta = requests.get(link_a_scrapear)
-        respuesta2 = requests.get(link_a_scrapear)
-        respuesta3 = requests.get(link_a_scrapear)
         
-        if respuesta.status_code and respuesta2.status_code and respuesta3.status_code == 200:
-            
-            link = respuesta.content.decode('utf-8')
-            link_2 = respuesta2.content.decode('utf-8')
-            link_3 = respuesta3.content.decode('utf-8')
+        if respuesta.status_code == 200:
 
-            parseado = html.fromstring(link)
-            parseado2 = html.fromstring(link_2)
-            parseado3 = html.fromstring(link_3)
+            link_1 = respuesta.content.decode('utf-8')
+            link_2 = respuesta.content.decode('utf-8')
+            link_3 = respuesta.content.decode('utf-8')
 
-            links_a_descargar = parseado.xpath(XPATH_LINKS_A_DESCARGAR)
-            titulos_caps = parseado2.xpath(XPATH_TITULOS_CAPS)
-            nombre_anime = parseado3.xpath(XPATH_SERIE)[0]
+            parseado_1 = html.fromstring(link_1)
+            parseado_2 = html.fromstring(link_2)
+            parseado_3 = html.fromstring(link_3)
+
+            links_a_descargar = parseado_1.xpath(XPATH_LINKS_A_DESCARGAR)
+            titulos_caps = parseado_2.xpath(XPATH_TITULOS_CAPS)
+            nombre_anime = parseado_3.xpath(XPATH_SERIE)[0]
             
             #se limpia un poco el nombre del anime
             nombre_anime = nombre_anime.replace('\'', '')
@@ -95,6 +93,9 @@ def run():
 
     for iterador in paginas:
         parse_links(iterador)
+
+    final = time.time()
+    print(f"El tiempo de ejecucion fue: {final-inicio}")
 
 if __name__ == '__main__':
     run()
