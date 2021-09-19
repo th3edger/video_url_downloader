@@ -8,8 +8,11 @@ El siguiente script sirve para extraer de manera automatica los links para desca
 
 ## Instalación
 
-> **Note**: Para ejecutar con éxito el programa, se tiene que ejecutar el siguiente comando para instalar las dependencias necesarias como -ffmpeg- ademas de las respectivas de Python que se encuentran en el archivo de requirements:
+> **Note**: Para ejecutar con éxito el programa, se tiene que ejecutar el siguiente comando para instalar las dependencias necesarias como -ffmpeg- ademas de las respectivas de Python que se encuentran en el archivo de requirements.txt:
 
+```sh
+apt get install ffmpeg -y 
+```
 
 ```sh
 pip3 install -r requirements.txt 
