@@ -75,7 +75,7 @@ def regex_cap2(lista_cap: list) -> list:
     return lista_limpia
 
 
-def parse_links(link_a_scrapear):
+def get_anime(link_a_scrapear):
     try:
         
         respuesta = requests.get(link_a_scrapear)
@@ -115,7 +115,7 @@ def run():
 
     # pagina = input("Ingrese el link de la descarga:  ")
     # print()
-    # parse_links(pagina)
+    # get_anime(pagina)
     paginas = (
         'https://biblioteca.japan-paw.net/0:/Anime/G/[MKNF]%20Grisaia%20no%20Kajitsu%20[BD%201080p]/[MKNF]%20Grisaia%20no%20Kajitsu%20[BD%201080p].html',
         'https://biblioteca.japan-paw.net/0:/Anime/E/Evangelion:%203.0+1.0%20Thrice%20Upon%20a%20Time/Evangelion%203.0+1.0%20Thrice%20Upon%20a%20Time.html',
@@ -125,7 +125,7 @@ def run():
     )
 
     for iterador in paginas:
-        parse_links(iterador)
+        get_anime(iterador)
 
     final = time.time()
     tiempo = final-inicio
