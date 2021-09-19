@@ -11,7 +11,8 @@ PATRON_REGEX = re.compile(r'https?:\/\/[^o].+$')
 PATRON_REGEX_TITULO = re.compile(r'\s?\[[\w\s?]+[\W]?\]\s?')
 PATRON_REGEX_TITULO_2 = re.compile(r'\s')
 PATRON_REGEX_NOM_CAP = re.compile(r'\s?\[[\w\s?]+!?[\w]?\]\s?')
-PATRON_REGEX_NOM_CAP2 = re.compile(r'\W')
+PATRON_REGEX_NOM_CAP2 = re.compile(r'\s')
+
 
 def make_files(links: list, t_caps: list, nombre_anime: str):
 
@@ -33,6 +34,13 @@ def make_files(links: list, t_caps: list, nombre_anime: str):
 
         for llave in diccionario:
             f.write( f"{llave} : {diccionario[llave]}\n" )
+    
+
+    t_caps = regex_cap2(t_caps)
+
+    with open('anime/'+nombre_anime+'/lista_'+nombre_anime+'_nom_caps.txt', 'w', encoding='utf-8') as f:
+        for iterador in t_caps:
+            f.write(iterador+'.mkv\n')
 
 
 def regex_title(lista: list) -> list:
@@ -52,6 +60,16 @@ def regex_cap(lista: list) -> list:
 
     for line in lista:
         res = re.sub(PATRON_REGEX_NOM_CAP, "", line)
+        lista_limpia.append(res)
+
+    return lista_limpia
+
+
+def regex_cap2(lista_cap: list) -> list:
+    lista_limpia = []
+
+    for line in lista_cap:
+        res = re.sub(PATRON_REGEX_NOM_CAP2, "", line)
         lista_limpia.append(res)
 
     return lista_limpia
@@ -110,7 +128,9 @@ def run():
         parse_links(iterador)
 
     final = time.time()
-    print(f"El tiempo de ejecucion fue: {final-inicio}")
+    tiempo = final-inicio
+    tiempo = round(tiempo, 3)
+    print(f"El tiempo de ejecucion fue: {tiempo} segundos")
 
 if __name__ == '__main__':
     run()
