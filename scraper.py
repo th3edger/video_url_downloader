@@ -10,6 +10,8 @@ XPATH_SERIE = '//div[@style]/h1/text()'
 PATRON_REGEX = re.compile(r'https?:\/\/[^o].+$')
 PATRON_REGEX_TITULO = re.compile(r'\s?\[[\w\s?]+[\W]?\]\s?')
 PATRON_REGEX_TITULO_2 = re.compile(r'\s')
+PATRON_REGEX_NOM_CAP = re.compile(r'\s?\[[\w\s?]+!?[\w]?\]\s?')
+PATRON_REGEX_NOM_CAP2 = re.compile(r'\W')
 
 def make_files(links: list, t_caps: list, nombre_anime: str):
 
@@ -33,7 +35,7 @@ def make_files(links: list, t_caps: list, nombre_anime: str):
             f.write( f"{llave} : {diccionario[llave]}\n" )
 
 
-def regex(lista: list) -> list:
+def regex_title(lista: list) -> list:
     
     lista_limpia = []
 
@@ -41,6 +43,17 @@ def regex(lista: list) -> list:
         res = re.findall(PATRON_REGEX, line)
         lista_limpia.append(res)
         
+    return lista_limpia
+
+
+def regex_cap(lista: list) -> list:
+
+    lista_limpia = []
+
+    for line in lista:
+        res = re.sub(PATRON_REGEX_NOM_CAP, "", line)
+        lista_limpia.append(res)
+
     return lista_limpia
 
 
@@ -67,7 +80,8 @@ def parse_links(link_a_scrapear):
             nombre_anime = re.sub(PATRON_REGEX_TITULO, "", nombre_anime)
             nombre_anime = re.sub(PATRON_REGEX_TITULO_2, "_", nombre_anime)
             
-            links_a_descargar = regex(links_a_descargar)
+            links_a_descargar = regex_title(links_a_descargar)
+            titulos_caps = regex_cap(titulos_caps)
 
             make_files(links_a_descargar, titulos_caps, nombre_anime)
 
