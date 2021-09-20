@@ -6,7 +6,7 @@ XPATH_LINKS_A_DESCARGAR = '//td/a[@class = "enlaces"]/@href'
 XPATH_TITULOS_CAPS = '//td/a[@class = "enlaces" and @href]/p/text()'
 XPATH_SERIE = '//div[@style]/h1/text()'
 
-PATRON_REGEX = re.compile(r'https?:\/\/[^o].+$')
+PATRON_REGEX_HTML = re.compile(r'https?:\/\/[^o].+$')
 PATRON_REGEX_TITULO = re.compile(r'\s?\[[\w\s?-]+[\W]?\]\s?')
 PATRON_REGEX_TITULO_2 = re.compile(r'\s')
 PATRON_REGEX_NOM_CAP = re.compile(r'\s?\[[\w\s?-]+!?[\w]?\]\s')
@@ -47,25 +47,25 @@ def make_files(links: list, t_caps: list, nombre_anime: str):
             f.write( f"{llave} : {diccionario[llave]}\n" )
     
 
-    t_caps = regex_cap2(t_caps)
+    t_caps = regex_caps_2(t_caps)
 
     with open('anime/'+nombre_anime+'/lista_'+nombre_anime+'_nom_caps.txt', 'w', encoding='utf-8') as f:
         for iterador in t_caps:
             f.write(iterador+'.mkv\n')
 
 
-def regex_title(lista: list) -> list:
+def regex_html_links(lista: list) -> list:
     
     lista_limpia = []
 
     for line in lista:
-        res = re.findall(PATRON_REGEX, line)
+        res = re.findall(PATRON_REGEX_HTML, line)
         lista_limpia.append(res)
         
     return lista_limpia
 
 
-def regex_cap(lista: list) -> list:
+def regex_caps(lista: list) -> list:
 
     lista_limpia = []
 
@@ -76,7 +76,7 @@ def regex_cap(lista: list) -> list:
     return lista_limpia
 
 
-def regex_cap2(lista_cap: list) -> list:
+def regex_caps_2(lista_cap: list) -> list:
     lista_limpia = []
 
     for line in lista_cap:
@@ -109,8 +109,8 @@ def get_anime(link_a_scrapear):
             nombre_anime = re.sub(PATRON_REGEX_TITULO, "", nombre_anime)
             nombre_anime = re.sub(PATRON_REGEX_TITULO_2, "_", nombre_anime)
             
-            links_a_descargar = regex_title(links_a_descargar)
-            titulos_caps = regex_cap(titulos_caps)
+            links_a_descargar = regex_html_links(links_a_descargar)
+            titulos_caps = regex_caps(titulos_caps)
 
             make_files(links_a_descargar, titulos_caps, nombre_anime)
 
