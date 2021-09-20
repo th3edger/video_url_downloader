@@ -2,9 +2,7 @@
 
 ## Introducción
 
-El siguiente script sirve para extraer de manera automatica los enlaces de descarga por episodio de la pagina <https://www.japan-paw.net/> para su posterior descarga
-
-
+El siguiente script sirve para descargar ainme de manera automatica del servidor de Discord de Japan Paw.
 
 ## Instalación
 
