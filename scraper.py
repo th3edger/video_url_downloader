@@ -1,7 +1,6 @@
 import os, re, requests, time
 import lxml.html as html
 
-inicio = time.time()
 
 XPATH_LINKS_A_DESCARGAR = '//td/a[@class = "enlaces"]/@href'
 XPATH_TITULOS_CAPS = '//td/a[@class = "enlaces" and @href]/p/text()'
@@ -12,6 +11,18 @@ PATRON_REGEX_TITULO = re.compile(r'\s?\[[\w\s?]+[\W]?\]\s?')
 PATRON_REGEX_TITULO_2 = re.compile(r'\s')
 PATRON_REGEX_NOM_CAP = re.compile(r'\s?\[[\w\s?]+!?[\w]?\]\s?')
 PATRON_REGEX_NOM_CAP2 = re.compile(r'\s')
+
+
+def execution_time(func):
+    def envoltura(*args, **kwargs):
+        tiempo_inicial = time.time()
+        func(*args, **kwargs)
+        tiempo_final = time.time()
+        tiempo_transcurrido = tiempo_final-tiempo_inicial
+        tiempo_transcurrido = round(tiempo_transcurrido, 3)
+        print(f"Transcurrieron: {tiempo_transcurrido} segundos")
+
+    return envoltura
 
 
 def make_files(links: list, t_caps: list, nombre_anime: str):
@@ -111,6 +122,7 @@ def get_anime(link_a_scrapear):
 
 
 
+@execution_time
 def run():
 
     # pagina = input("Ingrese el link de la descarga:  ")
@@ -121,16 +133,16 @@ def run():
         'https://biblioteca.japan-paw.net/0:/Anime/E/Evangelion:%203.0+1.0%20Thrice%20Upon%20a%20Time/Evangelion%203.0+1.0%20Thrice%20Upon%20a%20Time.html',
         'https://biblioteca.japan-paw.wtf/0:/Anime/B/[Tsubaki]%20Bokura%20wa%20Minna%20Kawai-sou%20[BD%201080p]/[Tsubaki]%20Bokura%20wa%20Minna%20Kawai-sou%20[BD%201080p]mirror.html',
         'https://biblioteca.japanpaw.workers.dev/0:/Anime/F/[PuyaSubs!]%20Fairy%20Tail%20S2%20[1080p]/[PuyaSubs!]%20Fairy%20Tail%20S2%20[1080p].html',
-        'https://biblioteca.japanpaw.workers.dev/0:/Anime/F/[BB]%20Fairy%20Tail%20[BD-Tv%20720p]%20+%206%20OVAs/[BB]%20Fairy%20Tail%20[BD-Tv%20720p]%20+%206%20OVAs.html'
+        'https://biblioteca.japanpaw.workers.dev/0:/Anime/F/[BB]%20Fairy%20Tail%20[BD-Tv%20720p]%20+%206%20OVAs/[BB]%20Fairy%20Tail%20[BD-Tv%20720p]%20+%206%20OVAs.html',
+        'https://biblioteca.japan-paw.net/0:/Anime/U/[OTNF]%20Uzaki-chan%20wa%20Asobitai!%20[BD%201080p]/[OTNF]%20Uzaki-chan%20wa%20Asobitai!%20[BD%201080p].html',
+        'https://biblioteca.japan-paw.net/0:/Anime/M/[J-Paw%20Mod!]%20Megami-ryou%20no%20Ryoubo-kun%20[Web%201080p]/[J-Paw%20Mod!]%20Megami-ryou%20no%20Ryoubo-kun%20[Web%201080p].html',
+        'https://biblioteca.japan-paw.net/0:/Anime/D/[Madness%20Subs]%20Date%20A%20Live%20S3%20[BD%201080p]/[Madness%20Subs]%20Date%20A%20Live%20S3%20[BD%201080p].html'
     )
 
     for iterador in paginas:
         get_anime(iterador)
 
-    final = time.time()
-    tiempo = final-inicio
-    tiempo = round(tiempo, 3)
-    print(f"El tiempo de ejecucion fue: {tiempo} segundos")
+
 
 if __name__ == '__main__':
     run()
