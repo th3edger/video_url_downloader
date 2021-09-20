@@ -7,9 +7,9 @@ XPATH_TITULOS_CAPS = '//td/a[@class = "enlaces" and @href]/p/text()'
 XPATH_SERIE = '//div[@style]/h1/text()'
 
 PATRON_REGEX = re.compile(r'https?:\/\/[^o].+$')
-PATRON_REGEX_TITULO = re.compile(r'\s?\[[\w\s?]+[\W]?\]\s?')
+PATRON_REGEX_TITULO = re.compile(r'\s?\[[\w\s?-]+[\W]?\]\s?')
 PATRON_REGEX_TITULO_2 = re.compile(r'\s')
-PATRON_REGEX_NOM_CAP = re.compile(r'\s?\[[\w\s?]+!?[\w]?\]\s?')
+PATRON_REGEX_NOM_CAP = re.compile(r'\s?\[[\w\s?-]+!?[\w]?\]\s')
 PATRON_REGEX_NOM_CAP2 = re.compile(r'\s')
 
 
