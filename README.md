@@ -2,7 +2,7 @@
 
 ## Introducción
 
-El siguiente script sirve para extraer de manera automatica los links para descargar posteriormente los episodios de anime de la pagina de <https://www.Japan-paw.net>
+El siguiente script sirve para extraer de manera automatica los enlaces de descarga por episodio de la pagina <https://www.japan-paw.net/> para su posterior descarga
 
 
 
