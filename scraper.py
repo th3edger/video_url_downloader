@@ -63,44 +63,50 @@ def regex_caps(lista: list) -> list:
 def download_videos(anime):
     chunk_size = 1024*1024
 
-    with open('anime/'+anime+'/'+anime+'_zeldas.txt', 'r', encoding='utf-8')as f:
-        urllis = f.read()
-
-    url = urllis
-
-    print(url)
-
-    r = requests.get(urllis, stream=True)
-
-    with open("anime/"+anime+"/nom_caps_"+anime+".txt", "r", encoding='utf-8') as f:
-        nombres = f.read()
+    urlis = []
+    with open("anime/"+anime+"/"+anime+"_zeldas.txt", "r", encoding='utf-8')as f:
+        url = f.readlines()
+        url = "".join(url)
+        urlis.append(url)
     
-    nombre = nombres
-    # print(nombre)
+    nombres = []
+    with open("anime/"+anime+"/nom_caps_"+anime+".txt", "r", encoding='utf-8') as f:
+        nombre = f.readlines()
+        nombres.append(nombre)
+    
+    diccionario = {nombres[i]: urlis[i] for i in range(len(nombres))}
 
-    with open('anime/'+anime+'/videos/'+nombre, 'wb', encoding='utf-8') as f:
-        for chunk in r.iter_content(chunk_size=chunk_size):
-            print("descargando...")
-            f.write(chunk)
+    for llave in diccionario:
+        print(f"{llave}: {diccionario[llave]}")
+
+    # r = requests.get(urllis, stream=True)
+
+    # with open('anime/'+anime+'/videos/'+nombre, 'wb', encoding='utf-8') as f:
+    #     for chunk in r.iter_content(chunk_size=chunk_size):
+    #         print("descargando...")
+    #         f.write(chunk)
 
 
 def make_files(links: list, t_caps: list, nombre_anime: str):
+
+    if not os.path.isdir('anime/'):
+        os.mkdir('anime/')
 
     if not os.path.isdir('anime/'+nombre_anime):
         os.mkdir('anime/'+nombre_anime)
 
     with open('anime/'+nombre_anime+'/'+nombre_anime+'_zeldas.txt', 'w', encoding='utf-8') as f:
         for iterador in links:
+            iterador = "".join(iterador)
             f.write(str(iterador)+'\n')
 
 
     diccionario = dict(zip(t_caps, links))
-
     with open('anime/'+nombre_anime+'/'+nombre_anime+'.txt', 'w', encoding='utf-8') as f:
         f.write(f"{nombre_anime}\n\n")
 
         for llave in diccionario:
-            f.write(f"{llave}: {diccionario[llave]}\n")
+            f.write(f"{llave}: {str(diccionario[llave])}\n")
 
     
     extensiones = regex_html_extensions(links)
@@ -108,7 +114,6 @@ def make_files(links: list, t_caps: list, nombre_anime: str):
         for capitulo, ext in list(zip(t_caps, extensiones)):
             ext = "".join(ext)
             capitulo=capitulo+ext+'\n'
-            # print(f"{str(capitulo)}{ext}")
             f.write(capitulo)
     
 
@@ -138,8 +143,8 @@ def get_anime(link_a_scrapear):
             links_a_descargar = regex_html_links(links_a_descargar)
             titulos_caps = regex_caps(titulos_caps)
 
-            # make_files(links_a_descargar, titulos_caps, nombre_anime)
-            download_videos(nombre_anime)
+            make_files(links_a_descargar, titulos_caps, nombre_anime)
+            # download_videos(nombre_anime)
 
         else:
             raise ValueError(f'Error: {respuesta.status_code}')
@@ -148,20 +153,23 @@ def get_anime(link_a_scrapear):
         print(ve)
 
 
-
 @execution_time
 def run():
 
     # pagina = input("Ingrese el link de la descarga:  ")
     # print()
-    # get_anime(pagina)
+
+    # # # pagina = 'https://biblioteca.japan-paw.net/0:/Anime/D/[Madness%20Subs]%20Date%20A%20Live%20S3%20[BD%201080p]/[Madness%20Subs]%20Date%20A%20Live%20S3%20[BD%201080p].html'
+    # # # get_anime(pagina)
+    
+    
     paginas = (
-        # 'https://biblioteca.japan-paw.net/0:/Anime/G/[MKNF]%20Grisaia%20no%20Kajitsu%20[BD%201080p]/[MKNF]%20Grisaia%20no%20Kajitsu%20[BD%201080p].html',
-        # 'https://biblioteca.japan-paw.net/0:/Anime/E/Evangelion:%203.0+1.0%20Thrice%20Upon%20a%20Time/Evangelion%203.0+1.0%20Thrice%20Upon%20a%20Time.html',
-        # 'https://biblioteca.japan-paw.wtf/0:/Anime/B/[Tsubaki]%20Bokura%20wa%20Minna%20Kawai-sou%20[BD%201080p]/[Tsubaki]%20Bokura%20wa%20Minna%20Kawai-sou%20[BD%201080p]mirror.html',
-        # 'https://biblioteca.japanpaw.workers.dev/0:/Anime/F/[PuyaSubs!]%20Fairy%20Tail%20S2%20[1080p]/[PuyaSubs!]%20Fairy%20Tail%20S2%20[1080p].html',
-        # 'https://biblioteca.japanpaw.workers.dev/0:/Anime/F/[BB]%20Fairy%20Tail%20[BD-Tv%20720p]%20+%206%20OVAs/[BB]%20Fairy%20Tail%20[BD-Tv%20720p]%20+%206%20OVAs.html',
-        # 'https://biblioteca.japan-paw.net/0:/Anime/U/[OTNF]%20Uzaki-chan%20wa%20Asobitai!%20[BD%201080p]/[OTNF]%20Uzaki-chan%20wa%20Asobitai!%20[BD%201080p].html',
+        'https://biblioteca.japan-paw.net/0:/Anime/G/[MKNF]%20Grisaia%20no%20Kajitsu%20[BD%201080p]/[MKNF]%20Grisaia%20no%20Kajitsu%20[BD%201080p].html',
+        'https://biblioteca.japan-paw.net/0:/Anime/E/Evangelion:%203.0+1.0%20Thrice%20Upon%20a%20Time/Evangelion%203.0+1.0%20Thrice%20Upon%20a%20Time.html',
+        'https://biblioteca.japan-paw.wtf/0:/Anime/B/[Tsubaki]%20Bokura%20wa%20Minna%20Kawai-sou%20[BD%201080p]/[Tsubaki]%20Bokura%20wa%20Minna%20Kawai-sou%20[BD%201080p]mirror.html',
+        'https://biblioteca.japanpaw.workers.dev/0:/Anime/F/[PuyaSubs!]%20Fairy%20Tail%20S2%20[1080p]/[PuyaSubs!]%20Fairy%20Tail%20S2%20[1080p].html',
+        'https://biblioteca.japanpaw.workers.dev/0:/Anime/F/[BB]%20Fairy%20Tail%20[BD-Tv%20720p]%20+%206%20OVAs/[BB]%20Fairy%20Tail%20[BD-Tv%20720p]%20+%206%20OVAs.html',
+        'https://biblioteca.japan-paw.net/0:/Anime/U/[OTNF]%20Uzaki-chan%20wa%20Asobitai!%20[BD%201080p]/[OTNF]%20Uzaki-chan%20wa%20Asobitai!%20[BD%201080p].html',
         'https://biblioteca.japan-paw.net/0:/Anime/M/[J-Paw%20Mod!]%20Megami-ryou%20no%20Ryoubo-kun%20[Web%201080p]/[J-Paw%20Mod!]%20Megami-ryou%20no%20Ryoubo-kun%20[Web%201080p].html',
         'https://biblioteca.japan-paw.net/0:/Anime/D/[Madness%20Subs]%20Date%20A%20Live%20S3%20[BD%201080p]/[Madness%20Subs]%20Date%20A%20Live%20S3%20[BD%201080p].html'
     )
