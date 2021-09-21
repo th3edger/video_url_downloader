@@ -1,5 +1,6 @@
 venv/
 anime/
+regex/
 *.txt
 !requirements.txt
 *.code-workspace

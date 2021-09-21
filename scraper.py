@@ -46,9 +46,7 @@ def make_files(links: list, t_caps: list, nombre_anime: str):
         for llave in diccionario:
             f.write( f"{llave} : {diccionario[llave]}\n" )
     
-
-    t_caps = regex_caps_2(t_caps)
-
+    
     with open('anime/'+nombre_anime+'/lista_'+nombre_anime+'_nom_caps.txt', 'w', encoding='utf-8') as f:
         for iterador in t_caps:
             f.write(iterador+'.mkv\n')
@@ -71,16 +69,7 @@ def regex_caps(lista: list) -> list:
 
     for line in lista:
         res = re.sub(PATRON_REGEX_NOM_CAP, "", line)
-        lista_limpia.append(res)
-
-    return lista_limpia
-
-
-def regex_caps_2(lista_cap: list) -> list:
-    lista_limpia = []
-
-    for line in lista_cap:
-        res = re.sub(PATRON_REGEX_NOM_CAP2, "", line)
+        res = re.sub(PATRON_REGEX_NOM_CAP2, "", res)
         lista_limpia.append(res)
 
     return lista_limpia
