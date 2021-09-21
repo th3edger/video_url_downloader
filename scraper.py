@@ -11,6 +11,7 @@ PATRON_REGEX_TITULO = re.compile(r'\s?\[[\w\s?-]+[\W]?\]\s?')
 PATRON_REGEX_TITULO_2 = re.compile(r'\s')
 PATRON_REGEX_NOM_CAP = re.compile(r'\s?\[[\w\s?-]+!?[\w]?\]\s')
 PATRON_REGEX_NOM_CAP2 = re.compile(r'\s')
+PATRON_REGEX_EXTENSION = re.compile(r'\.m[kp]{1,1}[v4]{1,1}')
 
 
 def execution_time(func):
@@ -25,41 +26,25 @@ def execution_time(func):
     return envoltura
 
 
-def make_files(links: list, t_caps: list, nombre_anime: str):
-
-    if not os.path.isdir('anime/'+nombre_anime):
-        os.mkdir('anime/'+nombre_anime)
-
-    with open('anime/'+nombre_anime+'/'+nombre_anime+'_zeldas.txt', 'w', encoding='utf-8') as f:
-        for iterador in links:
-            iterador = "".join(iterador)
-            f.write(iterador+"\n")
-
-    diccionario = dict(zip(t_caps, links))
-
-
-    with open('anime/'+nombre_anime+'/'+nombre_anime+'.txt', 'w', encoding='utf-8') as f:
-        nombre_anime = "".join(nombre_anime)
-        
-        f.write(f"{nombre_anime} \n\n")
-
-        for llave in diccionario:
-            f.write( f"{llave} : {diccionario[llave]}\n" )
-    
-    
-    with open('anime/'+nombre_anime+'/lista_'+nombre_anime+'_nom_caps.txt', 'w', encoding='utf-8') as f:
-        for iterador in t_caps:
-            f.write(iterador+'.mkv\n')
-
-
 def regex_html_links(lista: list) -> list:
-    
     lista_limpia = []
 
     for line in lista:
+        line = "".join(line)
         res = re.findall(PATRON_REGEX_HTML, line)
         lista_limpia.append(res)
         
+    return lista_limpia
+
+
+def regex_html_extensions(lista_ext: list) -> list:
+    lista_limpia = []
+
+    for line in lista_ext:
+        res = "".join(line)
+        result = re.findall(PATRON_REGEX_EXTENSION, res)
+        lista_limpia.append(result)
+
     return lista_limpia
 
 
@@ -74,6 +59,34 @@ def regex_caps(lista: list) -> list:
 
     return lista_limpia
 
+
+def make_files(links: list, t_caps: list, nombre_anime: str):
+
+    if not os.path.isdir('anime/'+nombre_anime):
+        os.mkdir('anime/'+nombre_anime)
+
+    with open('anime/'+nombre_anime+'/'+nombre_anime+'_zeldas.txt', 'w', encoding='utf-8') as f:
+        for iterador in links:
+            f.write(str(iterador)+'\n')
+
+
+    diccionario = dict(zip(t_caps, links))
+
+    with open('anime/'+nombre_anime+'/'+nombre_anime+'.txt', 'w', encoding='utf-8') as f:
+        f.write(f"{nombre_anime}\n\n")
+
+        for llave in diccionario:
+            f.write(f"{llave}: {diccionario[llave]}\n")
+
+    
+    extensiones = regex_html_extensions(links)
+    with open('anime/'+nombre_anime+'/nom_caps_'+nombre_anime+'.txt', 'w', encoding='utf-8') as f:
+        for capitulo, ext in list(zip(t_caps, extensiones)):
+            ext = "".join(ext)
+            capitulo=capitulo+ext+'\n'
+            # print(f"{str(capitulo)}{ext}")
+            f.write(capitulo)
+    
 
 def get_anime(link_a_scrapear):
     try:
