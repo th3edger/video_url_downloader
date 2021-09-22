@@ -6,11 +6,8 @@ El siguiente script sirve para descargar ainme de manera automatica del servidor
 
 ## Instalación
 
-> **Note**: Para ejecutar con éxito el programa, se tiene que ejecutar el siguiente comando para instalar las dependencias necesarias como -ffmpeg- ademas de las respectivas de Python que se encuentran en el archivo de requirements.txt:
+> **Note**: Para ejecutar con éxito el programa, se tiene que ejecutar el siguiente comando para instalar las dependencias necesarias de Python que se encuentran en el archivo de requirements.txt:
 
-```sh
-apt get install ffmpeg -y 
-```
 
 ```sh
 pip3 install -r requirements.txt 
