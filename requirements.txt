@@ -2,7 +2,7 @@ autopep8==1.5.7
 certifi==2021.5.30
 charset-normalizer==2.0.5
 idna==3.2
-lxml==4.6.3
+lxml==4.6.5
 pycodestyle==2.7.0
 requests==2.26.0
 toml==0.10.2
