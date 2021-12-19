@@ -1,5 +1,5 @@
 queries:
-  titulo_serie:  'h1'
+  titulo_serie:  'title'
   nomb_capitulo: '.enlaces p'
   nomb_capitulo2: 'a.enlaces p'
   link_capitulo: 'a.enlaces'

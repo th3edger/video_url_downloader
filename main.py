@@ -8,15 +8,22 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 
+
 def _series_scraper(serie_uid):
     host = config()['jp-paw-series'][serie_uid]['url']
 
-    logging.info(f'Empezando el scraper para {host}')
+    logging.info(f'Empezando el scraper para {host}\n')
     
-    jppagina = jp.JpPage(serie_uid, host)
-
-    for link in jppagina.link_caps:
+    jp_pagina_serie = jp.JpSeriePage(serie_uid, host)
+    
+    for link in jp_pagina_serie.link_caps:
         print(link)
+    
+    for nombre in jp_pagina_serie.nom_caps:
+        print(nombre)
+
+    print(f'\n\n{jp_pagina_serie.titulo_serie}\n\n')
+
 
 
 if __name__ == '__main__':
