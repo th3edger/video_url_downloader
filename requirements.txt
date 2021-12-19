@@ -1,4 +1,6 @@
 autopep8==1.5.7
+beautifulsoup4==4.10.0
+bs4==0.0.1
 certifi==2021.5.30
 charset-normalizer==2.0.5
 idna==3.2
@@ -7,5 +9,6 @@ pyaml==21.10.1
 pycodestyle==2.7.0
 PyYAML==6.0
 requests==2.26.0
+soupsieve==2.3.1
 toml==0.10.2
 urllib3==1.26.6

@@ -1,7 +1,8 @@
 queries:
   titulo_serie:  'h1'
   nomb_capitulo: '.enlaces p'
-  link_capitulo: '.enlaces'
+  nomb_capitulo2: 'a.enlaces p'
+  link_capitulo: 'a.enlaces'
 
 jp-paw-series:
   uzaki:
