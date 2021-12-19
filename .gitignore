@@ -1,6 +1,6 @@
 venv/
 anime/
-regex/
+/__pycache__
 *.txt
 !requirements.txt
 *.code-workspace
