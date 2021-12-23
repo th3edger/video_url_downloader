@@ -1,13 +1,14 @@
 import argparse
 import re
 import logging
-
 import pandas as pd
+
 import jp_page_object as jp
 from common import config
-logging.basicConfig(level=logging.INFO)
 
+logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
+
 enlace_valido = re.compile(r'https?://biblioteca.+\.m[kp]{1,1}[v4]{1,1}')
 titulo_valido = re.compile(r'(\s?\[[\w\s?-]+[\W]?\]\s?)?(\s?-\sJapan-Paw!)?')
 
@@ -16,7 +17,7 @@ titulo_valido = re.compile(r'(\s?\[[\w\s?-]+[\W]?\]\s?)?(\s?-\sJapan-Paw!)?')
 def _series_scraper(serie_uid):
     host = config()['jp-paw-series'][serie_uid]['url']
 
-    logging.info(f'Empezando el scraper para {host}\n')
+    logging.info(f'Empezando el scraper para {serie_uid}\nen:{host}\n')
     
     jp_pagina_serie = jp.JpSeriePage(serie_uid, host)
     
@@ -54,6 +55,7 @@ def _fetch_title_name(titulo_a_revisar):
 
 def _save_links(titulo_serie, nom_caps, links):
     archivo_salida = f"{titulo_serie}.csv"
+    archivo_salida2 = f"{titulo_serie}.txt"
 
     diccionario = {
         'Titulo de la Serie': titulo_serie,
@@ -62,7 +64,9 @@ def _save_links(titulo_serie, nom_caps, links):
     }
 
     df = pd.DataFrame(diccionario)
-    df.to_csv(archivo_salida)
+    df2 = pd.DataFrame(diccionario)
+    df.to_csv(archivo_salida, index=False)
+    df2.to_string(archivo_salida2, index=False)
 
 
 
