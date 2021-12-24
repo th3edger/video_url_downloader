@@ -17,7 +17,7 @@ titulo_valido = re.compile(r'(\s?\[[\w\s?-]+[\W]?\]\s?)?(\s?-\sJapan-Paw!)?')
 def _series_scraper(serie_uid):
     host = config()['jp-paw-series'][serie_uid]['url']
 
-    logging.info(f'Empezando el scraper para {serie_uid}\nen:{host}\n')
+    logging.info(f'Empezando el scraper para {serie_uid}\nen:{host}')
     
     jp_pagina_serie = jp.JpSeriePage(serie_uid, host)
     
@@ -30,7 +30,7 @@ def _series_scraper(serie_uid):
         links_bien_chiditos.append(link)
     
     _save_links(_fetch_title_name(jp_pagina_serie.titulo_serie), nombres_chiditos, links_bien_chiditos)
-    logging.info(f'Proceso de extraccion terminado para {_fetch_title_name(jp_pagina_serie.titulo_serie)}')
+    logging.info(f'Proceso de extraccion terminado para {_fetch_title_name(jp_pagina_serie.titulo_serie)}\n')
 
 
 
@@ -50,6 +50,7 @@ def _fetch_link(link_a_revisar):
 def _fetch_title_name(titulo_a_revisar):
     titulo = re.sub(pattern=titulo_valido, repl='', string=titulo_a_revisar)
     string_titulo = ''.join(titulo)
+    string_titulo = re.sub(pattern=r'\s', repl='_', string=string_titulo)
     return string_titulo
 
 
@@ -64,9 +65,9 @@ def _save_links(titulo_serie, nom_caps, links):
     }
 
     df = pd.DataFrame(diccionario)
-    df2 = pd.DataFrame(diccionario)
+    ds = pd.DataFrame({'': links})
     df.to_csv(archivo_salida, index=False)
-    df2.to_string(archivo_salida2, index=False)
+    ds.to_string(archivo_salida2, index=False)
 
 
 
