@@ -1,4 +1,5 @@
 import logging
+import shutil
 logging.basicConfig(level=logging.INFO)
 import subprocess
 
@@ -20,7 +21,7 @@ animes = {
 def main():
     _extract()
     _transform()
-    _load()
+    # _load()
 
 
 ##FUNCIONES
@@ -31,8 +32,15 @@ def _extract():
         subprocess.run(['python', 'main.py', anime], cwd='./extract')
         subprocess.run(
             [
-                'find', '.', '-name', '{}*'.format(anime),
-                '-exec', 'mv', '{}', '../transform/{}_.csv'.format(anime), 
+                'find', '.', '-name', '*.csv',
+                '-exec', 'mv', '{}', '../transform/{}.csv'.format(anime), 
+                ';'
+            ], cwd='./extract'
+        )
+        subprocess.run(
+            [
+                'find', '.', '-name', '*.txt',
+                '-exec', 'mv', '{}', '../files/{}', 
                 ';'
             ], cwd='./extract'
         )
@@ -42,7 +50,7 @@ def _transform():
     logger.info('Empezando el proceso de transformacion')
 
     for anime in animes:
-        dirty_data_filename = f"{anime}_.csv"
+        dirty_data_filename = f"{anime}.csv"
         clean_data_filename = f"clean_{dirty_data_filename}"
         subprocess.run(
             [

@@ -46,7 +46,7 @@ def _drops_rows_with_missing_values(df):
 
 def _save_data(df, filename):
     logger.info(f'Guardando la informacion en {filename}')
-    df.to_csv(f'nuevo_{filename}')
+    df.to_csv(f'clean_{filename}')
 
 
 
