@@ -2,7 +2,18 @@
 
 ## Introducción
 
-El siguiente script sirve para descargar ainme de manera automatica del servidor de Discord de Japan Paw.
+El siguiente proyecto sirve para descargar series de una manera automática del servidor de Discord de Japan Paws mediante URL's y guardarlas en una Base de Datos de manera estructurada de manera automatizada. 
+
+## Uso del Scraper
+
+Para utilizar el programa utilice la siguiente sintaxis desde la carpeta raíz:
+
+```sh
+python3 pipeline.py
+```
+
+**Note**: es recomendable el uso de entornos virtuales para la instalación de las múltiples dependencias del proyecto.
+
 
 ## Instalación
 
@@ -13,5 +24,11 @@ El siguiente script sirve para descargar ainme de manera automatica del servidor
 pip3 install -r requirements.txt 
 ```
 
-> **Note**: ejemplo del link que se debe ingresar:
-<https://biblioteca.japan-paw.wtf/0:/Anime/B/[Tsubaki]%20Bokura%20wa%20Minna%20Kawai-sou%20[BD%201080p]/[Tsubaki]%20Bokura%20wa%20Minna%20Kawai-sou%20[BD%201080p]mirror.html>
+
+## Configuración
+Para agregar una serie y que ésta se agregue al programa, basta con modificar el archivo de configuración "config.yaml" ubicado en la carpeta "/extract" con la siguiente sintaxis:
+```
+jp-paw-series:
+	<anime>:
+		 <url>:
+```
