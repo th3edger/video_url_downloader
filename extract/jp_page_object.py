@@ -18,7 +18,23 @@ class JpPage:
         return self._html.find(query_string).text
 
     def _visit(self, url):
-        respuesta = requests.get(url)
+        #En caso de que dejen de funcionar estos Proxies se pueden cambiar en la pagina https://free-proxy-list.net
+        proxies = {
+            'http': 'http://193.27.78.90:80',
+            'http': 'http://80.48.119.28:8080',
+            'http': 'http://34.77.73.11:80'
+        }
+        #En caso de que dejen de funcionar estos Proxies se pueden cambiar en la pagina https://www.socks-proxy.net
+        soc_proxies = {
+            'http':'socks4://177.68.77.231:4153',
+            'http':'socks4://103.254.167.110:5678',
+            'http':'socks4://190.186.58.236:40132'
+        }
+        cabeceras = {
+            'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'
+        }
+
+        respuesta = requests.get(url, headers=cabeceras, proxies=soc_proxies)
         #Metodo que nos permite aventar un errror si la solicitud no fue concluida correctamente
         respuesta.raise_for_status()
 

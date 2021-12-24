@@ -1,5 +1,4 @@
 import logging
-import shutil
 logging.basicConfig(level=logging.INFO)
 import subprocess
 
@@ -21,7 +20,7 @@ animes = {
 def main():
     _extract()
     _transform()
-    # _load()
+    _load()
 
 
 ##FUNCIONES
