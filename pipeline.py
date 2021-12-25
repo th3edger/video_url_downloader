@@ -21,6 +21,7 @@ def main():
     _extract()
     _transform()
     _load()
+    _download()
 
 
 ##FUNCIONES
@@ -68,7 +69,6 @@ def _transform():
         )
 
 
-
 def _load():
     logger.info('Empezando el proceso de carga')
     
@@ -84,6 +84,16 @@ def _load():
                 'rm', clean_data_filename
             ], cwd='./load'
         )
+
+
+def _download():
+    logger.info('Empezando con la descarga de las series')
+
+    subprocess.run(
+        [
+            './animes-downloader.sh'
+        ], cwd='./animes'
+    )
 
 
 if __name__ == '__main__':
