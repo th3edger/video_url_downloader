@@ -39,7 +39,7 @@ def _extract():
         subprocess.run(
             [
                 'find', '.', '-name', '*.txt',
-                '-exec', 'mv', '{}', '../files/{}', 
+                '-exec', 'mv', '{}', '../animes/{}', 
                 ';'
             ], cwd='./extract'
         )
