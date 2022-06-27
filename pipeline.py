@@ -1,27 +1,25 @@
 import logging
-logging.basicConfig(level=logging.INFO)
 import subprocess
 
+import yaml
+
 from extract import common as cm
+
+logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
-
-animes = {
-    'uzaki',
-    'bokura',
-    'grisaia',
-    'ft-S2',
-    'ft',
-    'megami',
-    'dal'
-}
+confi = None
 
 
-@cm.tiempo_de_ejecucion
-def main():
-    _extract()
-    _transform()
-    _load()
-    _download()
+def config():
+    global confi
+    if not confi:
+        with open(file='./extract/config.yaml',mode='r') as file:
+            confi = yaml.safe_load(file)
+    
+    return confi
+
+
+animes = list(config()['jp-paw-series'].keys())
 
 
 ##FUNCIONES
@@ -33,7 +31,7 @@ def _extract():
         subprocess.run(
             [
                 'find', '.', '-name', '*.csv',
-                '-exec', 'mv', '{}', '../transform/{}.csv'.format(anime), 
+                '-exec', 'mv', '{}', '../animes/', 
                 ';'
             ], cwd='./extract'
         )
@@ -46,46 +44,6 @@ def _extract():
         )
 
 
-def _transform():
-    logger.info('Empezando el proceso de transformacion')
-
-    for anime in animes:
-        dirty_data_filename = f"{anime}.csv"
-        clean_data_filename = f"clean_{dirty_data_filename}"
-        subprocess.run(
-            [
-                'python', 'main.py', dirty_data_filename
-            ], cwd='./transform'
-        )
-        subprocess.run(
-            [
-                'rm', dirty_data_filename
-            ], cwd='./transform'
-        )
-        subprocess.run(
-            [
-                'mv', clean_data_filename, '../load/{}.csv'.format(anime)
-            ], cwd='./transform'
-        )
-
-
-def _load():
-    logger.info('Empezando el proceso de carga')
-    
-    for anime in animes:
-        clean_data_filename = '{}.csv'.format(anime)
-        subprocess.run(
-            [
-                'python', 'main.py', clean_data_filename
-            ], cwd='./load'
-        )
-        subprocess.run(
-            [
-                'rm', clean_data_filename
-            ], cwd='./load'
-        )
-
-
 def _download():
     logger.info('Empezando con la descarga de las series')
 
@@ -94,6 +52,13 @@ def _download():
             './animes-downloader.sh'
         ], cwd='./animes'
     )
+
+
+
+@cm.tiempo_de_ejecucion
+def main():
+    _extract()
+    _download()
 
 
 if __name__ == '__main__':

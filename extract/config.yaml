@@ -5,19 +5,7 @@ queries:
   link_capitulo: 'a.enlaces'
 
 jp-paw-series:
-  uzaki:
-    url: https://biblioteca.japan-paw.net/0:/Anime/U/[OTNF]%20Uzaki-chan%20wa%20Asobitai!%20[BD%201080p]/[OTNF]%20Uzaki-chan%20wa%20Asobitai!%20[BD%201080p].html
-  bokura:
-    url: https://biblioteca.japan-paw.wtf/0:/Anime/B/[Tsubaki]%20Bokura%20wa%20Minna%20Kawai-sou%20[BD%201080p]/[Tsubaki]%20Bokura%20wa%20Minna%20Kawai-sou%20[BD%201080p]mirror.html
-  # eva4.0:
-  #   url: https://biblioteca.japan-paw.net/0:/Anime/E/Evangelion:%203.0+1.0%20Thrice%20Upon%20a%20Time/Evangelion%203.0+1.0%20Thrice%20Upon%20a%20Time.html
-  grisaia:
-    url: https://biblioteca.japan-paw.net/0:/Anime/G/[MKNF]%20Grisaia%20no%20Kajitsu%20[BD%201080p]/[MKNF]%20Grisaia%20no%20Kajitsu%20[BD%201080p].html
-  ft-S2:
-    url: https://biblioteca.japanpaw.workers.dev/0:/Anime/F/[PuyaSubs!]%20Fairy%20Tail%20S2%20[1080p]/[PuyaSubs!]%20Fairy%20Tail%20S2%20[1080p].html
-  ft:
-    url: https://biblioteca.japanpaw.workers.dev/0:/Anime/F/[BB]%20Fairy%20Tail%20[BD-Tv%20720p]%20+%206%20OVAs/[BB]%20Fairy%20Tail%20[BD-Tv%20720p]%20+%206%20OVAs.html
-  megami:
-    url: https://biblioteca.japan-paw.net/0:/Anime/M/[J-Paw%20Mod!]%20Megami-ryou%20no%20Ryoubo-kun%20[Web%201080p]/[J-Paw%20Mod!]%20Megami-ryou%20no%20Ryoubo-kun%20[Web%201080p].html
-  dal:
-    url: https://biblioteca.japan-paw.net/0:/Anime/D/[Madness%20Subs]%20Date%20A%20Live%20S3%20[BD%201080p]/[Madness%20Subs]%20Date%20A%20Live%20S3%20[BD%201080p].html
+  anime:
+    url: https://biblioteca.japan-paw.net
+  anime2:
+    url: https://biblioteca.japan-paw.net
