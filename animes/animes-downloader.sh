@@ -29,5 +29,5 @@ do
     fi
 
     wget -tries=5 -P ${ruta}${nom_carp}/ -i $arch_txt
-
+    rm ${arch_txt} && rm ${nom_carp}.csv
 done
